@@ -1,0 +1,41 @@
+{
+	"name": "DiyReact",
+	"version": "1.0.0",
+	"description": "DiyReact",
+	"scripts": {
+		"test": "ava --verbose test/00.render-dom-elements.test.js",
+		"debug": "node $NODE_DEBUG_OPTION node_modules/ava/profile.js test/00.render-dom-elements.test.js",
+		"build:main": "rollup src/diyreact.js -f umd -n diyreact -o dist/diyreact.umd.js"
+	},
+	"dependencies": {
+		"ava": "^0.25.0",
+		"babel-plugin-transform-react-jsx": "^6.24.1",
+		"babel-preset-env": "^1.7.0",
+		"babel-register": "^6.26.0",
+		"browser-env": "^3.2.5",
+		"requestidlecallback": "^0.3.0",
+		"rollup": "^0.63.4"
+	},
+	"ava": {
+		"require": "babel-register",
+		"babel": "inherit"
+	},
+	"babel": {
+		"plugins": [
+			[
+				"transform-react-jsx",
+				{}
+			]
+		],
+		"presets": [
+			[
+				"env",
+				{
+					"targets": {
+						"node": "current"
+					}
+				}
+			]
+		]
+	}
+}

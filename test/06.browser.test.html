@@ -1,0 +1,54 @@
+
+
+<html>
+<head>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="../dist/diyreact.umd.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel" data-plugins="transform-react-jsx" data-presets="es2017,stage-3">
+        /** @jsx diyreact.createElement **/
+
+        class FooComponent extends diyreact.Component {
+            constructor(props){
+                super(props);
+                this.state = {
+                    count : 0
+                }
+            }
+
+            handleClick(){
+                this.setState({
+                    count : (this.state.count + 1)
+                });
+            }
+
+            render(){
+                return (
+                    <div>
+                        计数：{this.state.count}
+
+                        <div onClick={()=>this.handleClick()}>增加</div>
+                    </div>
+                );
+            }
+        }
+
+        diyreact.render(<FooComponent />, document.getElementById("root"));
+
+        const element = {
+            type: "div",
+            props: {
+                id: "foo"
+            }
+        };
+        diyreact.render(element, document.getElementById("root"));
+
+        const element = <div id="foo"></div>;
+        diyreact.render(element, document.getElementById("root"));
+
+    </script>
+</body>
+</html>

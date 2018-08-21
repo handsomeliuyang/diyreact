@@ -1,0 +1,66 @@
+
+
+<html>
+<head>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="../dist/diyreact.umd.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel" data-plugins="transform-react-jsx" data-presets="es2017,stage-3">
+        /** @jsx diyreact.createElement **/
+
+        const studies = [
+            { name: "DiyReact的功能", url: "https://handsomeliuyang.github.io/" },
+            { name: "createElement与JSX", url: "https://handsomeliuyang.github.io/" },
+            { name: "Instance，reconciliation与Virtual Dom", url: "https://handsomeliuyang.github.io/" },
+            { name: "Component and State", url: "https://handsomeliuyang.github.io/" },
+            { name: "Fiber", url: "https://handsomeliuyang.github.io/" }
+        ];
+
+        class App extends diyreact.Component {
+            render() {
+                return (
+                    <div>
+                        <h1>DiyReact的学习过程</h1>
+                        <ul>
+                            {
+                                this.props.studies.map(study => {
+                                    return <Study name={study.name} url={study.url}/>;
+                                })
+                            }
+                        </ul>
+                    </div>
+                );
+            }
+        }
+
+        class Study extends diyreact.Component {
+            constructor(props) {
+                super(props);
+                this.state = { likes: Math.ceil(Math.random() * 100) };
+            }
+            like() {
+                this.setState({
+                    likes: this.state.likes + 1
+                });
+            }
+            render() {
+                const { name, url } = this.props;
+                const { likes } = this.state;
+                const likesElement = <span />;
+                return (
+                    <li>
+                        <button onClick={e => this.like()}>赞：{likes}️</button>
+                        <a href={url}>{name}</a>
+                    </li>
+                );
+            }
+        }
+
+        diyreact.render(<App studies={studies} />, document.getElementById("root"));
+
+    </script>
+</body>
+</html>
